@@ -6,7 +6,7 @@
 <body>
     <ul id = "list"></ul>
     <script>
-        fetch("/users")
+        fetch("http://localhost:3000/users")
         .then(r = r.json())
         .then(data => data.forEach(u => {
             list.innerHTML += `<li>${u.name} - ${u.email}</li>`;
