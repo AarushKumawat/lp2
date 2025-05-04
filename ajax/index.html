@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple ajax weather app</title>
+</head>
+<body>
+    <div class = "center">
+    <input id = "city" placeholder = "enter city">
+    <button onclick="getweather()">Get weather</button>
+    <div id = "result"></div>
+    </div>
+
+    <script>
+        function getweather() {
+            const city = document.getElementById("city").value;
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "weather.json", true);
+            xhr.onload = function() {
+                const data = JSON.parse(xhr.responseText);
+                if(data[city]){
+                    const w = data[city];
+                    document.getElementById("result").innerHTML =
+                    "temp: " + w.temp + ", humidity: " + w.humidity + ", condition: " + w.condition;
+                } else {
+                    document.getElementById("result").innerHTML = "city not found";
+                }
+
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

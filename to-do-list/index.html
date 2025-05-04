@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+    <input id="task" />
+    <button onclick="addTask()">Add</button>
+    <ul id="todolist"></ul>
+
+    <script>
+        function addTask() {
+            const task = document.getElementById('task').value;
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/add", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify({ task }));
+
+            xhr.onload = () => {
+                loadTasks();
+            };
+        }
+
+        function loadTasks() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "/list", true);
+            xhr.onload = () => {
+                const tasks = JSON.parse(xhr.responseText);
+                const ul = document.getElementById('todolist');
+                ul.innerHTML = '';
+                tasks.forEach((t, i) => {
+                    ul.innerHTML += `<li>${t} <button onclick="del(${i})">X</button></li>`;
+                });
+            };
+            xhr.send();
+        }
+
+
+        function del(index) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/delete", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify({ index }));
+            xhr.onload = () => loadTasks();
+        }
+
+        loadTasks();
+    </script>
+
+   
+
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+{
+    "Mumbai": { "temp": "32°C", "humidity": "70%", "condition": "Sunny" },
+    "Delhi": { "temp": "30°C", "humidity": "60%", "condition": "Cloudy" }
+  }
+  
